@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './style.module.css'
-import Hero from './hero.jpeg'
 import Button from '@material-ui/core/Button';
+import StickyHeader from './StickyHeader'
 import {withStyles} from '@material-ui/core/styles'
 const { page, title, background, signup, login } = styles
 const LoginButton = withStyles(styles)(Button)
@@ -13,10 +13,15 @@ class Home extends React.Component {
 
   render() {
     return <div className={page}>
+      <StickyHeader>
+        {/* If not logged in, render two buttons */}
+        <Button onClick={this.navigateToSignup}> Signup </Button>
+        <LoginButton > Login </LoginButton>
+      </StickyHeader>
       <h1 className={title}> MASC </h1>
-      <img className={background} src={Hero} alt='people standing' />
-      <Button onClick={this.navigateToSignup}> Signup </Button>
-      <LoginButton > Login </LoginButton>
+
+
+      {/* Once logged in, render dashboard and create post btn */}
     </div>
   }
 }

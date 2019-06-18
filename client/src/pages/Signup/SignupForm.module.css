@@ -1,0 +1,24 @@
+.form {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1)
+}
+
+.form > * {
+    margin: 5px 0px;
+}
+
+.cta {
+    border: none;
+    background-color: orange;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.cta:hover {
+    cursor: pointer;
+}

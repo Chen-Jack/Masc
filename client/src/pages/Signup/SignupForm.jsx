@@ -1,4 +1,5 @@
 import React from 'react'
+import { form, cta } from './SignupForm.module.css'
 
 class SignupForm extends React.Component {
   constructor(props){
@@ -21,15 +22,30 @@ class SignupForm extends React.Component {
   sendForm = () => {
     const successCb = this.props.onSuccess
     const failureCb = this.props.onFailure
-    successCb && successCb()
+  
+    fetch('http://localhost:3001/signup', {
+      method: 'POST',
+      body: JSON.stringify(this.state),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => {
+      if (res.ok) {
+        successCb && successCb()
+      } else {
+        successCb && failureCb()
+      }
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   render() {
-    return <div>
+    return <div className={form}>
         <input type='text' onChange={this.handleChange('email')} />
         <input type='password' onChange={this.handleChange('password')} />
         <input type='password' onChange={this.handleChange('password_confirm')} />
-        <button onClick={this.sendForm}> Submit </button>
+        <button type='button' onClick={this.sendForm} className={cta}> Submit </button>
       </div>
     }
 }
