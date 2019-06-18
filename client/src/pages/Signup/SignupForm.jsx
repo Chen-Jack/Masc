@@ -1,5 +1,5 @@
 import React from 'react'
-import { form, cta } from './SignupForm.module.css'
+import { form, cta, error } from './SignupForm.module.css'
 
 class SignupForm extends React.Component {
   constructor(props){
@@ -42,6 +42,7 @@ class SignupForm extends React.Component {
 
   render() {
     return <div className={form}>
+        <div className={error}> There was an error </div>
         <input type='text' onChange={this.handleChange('email')} />
         <input type='password' onChange={this.handleChange('password')} />
         <input type='password' onChange={this.handleChange('password_confirm')} />
