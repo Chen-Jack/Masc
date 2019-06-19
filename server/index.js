@@ -2,10 +2,16 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
-const PORT = 3001
-const sql = require('./db.js')
+const PORT = 3010
+const db = require('./db')
+const graphqlHTTP = require('express-graphql')
+const schema = require('./schema/schema')
 
 // Middleware
+app.use('/graphql', graphqlHTTP({
+  schema,
+  graphiql: true
+}))
 app.use(cors())
 app.use(bodyParser.json())
 
@@ -16,12 +22,19 @@ app.get('/', (req, res) => {
 })
 
 app.get('write', (req, res) => {
-  sql.query('')
+  db.run('INSERT INTO posts (postId, title, body, author')
   res.status(200)
 })
 
+app.get('/graphql', (req, res) => {
+
+})
+
 app.get('read', (req, res) => {
-  sql.run('SELECT * FROM posts', () => {
+  db.get('SELECT * FROM posts', (err, row) => {
+    if (err) {
+      res.status(400).send(err)
+    }
     res.status(200)
   })
 })
