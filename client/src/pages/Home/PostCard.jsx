@@ -3,7 +3,7 @@ import { card } from './post-card.module.css'
 
 class PostCard extends React.Component {
   render () {
-    return <div>
+    return <div className={card}>
       <h1> {this.props.title} </h1>
       <h2> {this.props.author} </h2>
       <p>

@@ -12,7 +12,7 @@ function logoutUser () {
   }
 }
 
-export default {
+export {
   loginUser,
   logoutUser
 }
