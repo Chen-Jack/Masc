@@ -34,3 +34,12 @@
 .login {
 
 }
+
+.gallery {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 50%;
+    min-height: 200px;
+}

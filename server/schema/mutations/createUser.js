@@ -6,7 +6,7 @@ const createUser = {
   type: UserType,
   args: {
     email: { type: GraphQLString },
-    password: { type: GraphQLString } 
+    password: { type: GraphQLString }
   },
   resolve (parent, args) {
     const newUser = {

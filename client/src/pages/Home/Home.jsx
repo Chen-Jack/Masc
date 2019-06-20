@@ -2,17 +2,21 @@ import React from 'react'
 import styles from './style.module.css'
 import Button from '@material-ui/core/Button'
 import StickyHeader from './StickyHeader'
+import PostCard from './PostCard'
 import actions from './../../store/actions'
 import { connect } from 'react-redux'
+import NoPosts from './NoPosts'
 
 const { loginUser, logoutUser } = actions
-const { page, title, background, signup, login } = styles
+const { page, title, background, signup, login, gallery } = styles
+
+function mapToCards (posts) {
+  return posts.map(({title, body, author}) => {
+    return <PostCard title={title} body={body} author={author}/>
+  })
+}
 
 class Home extends React.Component {
-  constructor (props) {
-    super(props)
-  }
-
   componentDidMount () {
     
   }
@@ -46,16 +50,20 @@ class Home extends React.Component {
       <button onClick={() => {
         this.props.login()
       }}> Log in?</button>
+
       {/* Render all recent posts */}
+      <div className={gallery}>
+        {this.props.posts.length ? mapToCards(this.props.posts) : <NoPosts />}
+      </div>
     </div>
   }
 }
 
-
 const mapStateToProps = (state, ownProps) => {
   console.log('state is now', state)
   return {
-    loggedIn: state.user.loggedIn
+    loggedIn: state.user.loggedIn,
+    posts: state.posts.posts
   }
 }
 
