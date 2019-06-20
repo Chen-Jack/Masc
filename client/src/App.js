@@ -20,7 +20,7 @@ function App () {
         </Switch>
       </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

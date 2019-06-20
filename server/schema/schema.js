@@ -1,5 +1,6 @@
 const graphql = require('graphql')
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLBoolean } = graphql
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLList, GraphQLInt } = graphql
+const uuid = require('uuid/v4')
 
 const mockAuthors = [
   {
@@ -73,11 +74,22 @@ const PostQuery = {
   }
 }
 
+const GetPostQuery = {
+  type: new GraphQLList(PostType),
+  args: {
+    amount: { type: GraphQLInt }
+  },
+  resolve (parent, args) {
+    return mockPosts.slice(0, args.amount)
+  }
+}
+
 const RootQuery = new GraphQLObjectType({
   name: 'RootQuery',
   fields: {
     posts: PostQuery,
-    users: UserQuery
+    users: UserQuery,
+    getPosts: GetPostQuery
   }
 })
 
@@ -107,10 +119,8 @@ const RootMutation = new GraphQLObjectType({
       },
       resolve (parent, args) {
         console.log('recieved', args.title, args.body)
-        const randomId = parseInt(Math.random() * 100000, 10).toString()
-        console.log('id', randomId)
         const newPost = {
-          postId: randomId,
+          postId: uuid(),
           title: args.title,
           body: args.body
         }

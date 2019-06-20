@@ -31,6 +31,8 @@ class CreatePost extends React.Component {
       res.json()
         .then(body => {
           console.log('Created', body)
+          // Redirect to home after creation
+          this.props.history.push('/')
         })
     })
   }

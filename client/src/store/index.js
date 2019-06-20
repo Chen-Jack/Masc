@@ -1,11 +1,10 @@
-import redux from 'redux'
+import { combineReducers, createStore } from 'redux'
 
-const initState = {
+const handleUserAccount = (state = {
   loggedIn: false,
   username: ''
-}
-
-const handleUserAccount = (state, action) => {
+}, action) => {
+  console.log('called', action)
   switch (action.type) {
     case 'LOGIN':
       return Object.assign({}, state, { loggedIn: true })
@@ -18,9 +17,9 @@ const handleUserAccount = (state, action) => {
   }
 }
 
-const rootReducer = redux.combineReducers({
+const rootReducer = combineReducers({
   handleUserAccount
 })
-const store = redux.createStore(rootReducer, initState)
+const store = createStore(rootReducer, { handleUserAccount })
 
 export default store
