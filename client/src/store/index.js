@@ -1,25 +1,13 @@
-import { combineReducers, createStore } from 'redux'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 
-const user = (state = {
-  loggedIn: false,
-  username: ''
-}, action) => {
-  console.log('called', action)
-  switch (action.type) {
-    case 'LOGIN':
-      return Object.assign({}, state, { loggedIn: true })
-    case 'LOGOUT':
-      return Object.assign({}, state, { loggedIn: false })
-    case 'RENAME':
-      return Object.assign({}, state, { username: action.newName })
-    default:
-      return state
-  }
-}
+import user from './reducers/user'
+import posts from './reducers/posts'
 
 const rootReducer = combineReducers({
-  user
+  user,
+  posts
 })
-const store = createStore(rootReducer)
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 export default store
