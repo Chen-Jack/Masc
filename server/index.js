@@ -8,12 +8,12 @@ const graphqlHTTP = require('express-graphql')
 const schema = require('./schema/schema')
 
 // Middleware
+app.use(cors())
 app.use('/graphql', graphqlHTTP({
   schema,
   graphiql: true
 }))
-app.use(cors())
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
 
 // app.use(express.static('./client/dist'))
 
