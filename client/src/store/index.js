@@ -1,6 +1,6 @@
 import { combineReducers, createStore } from 'redux'
 
-const handleUserAccount = (state = {
+const user = (state = {
   loggedIn: false,
   username: ''
 }, action) => {
@@ -18,8 +18,8 @@ const handleUserAccount = (state = {
 }
 
 const rootReducer = combineReducers({
-  handleUserAccount
+  user
 })
-const store = createStore(rootReducer, { handleUserAccount })
+const store = createStore(rootReducer)
 
 export default store

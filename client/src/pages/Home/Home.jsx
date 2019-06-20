@@ -5,7 +5,7 @@ import StickyHeader from './StickyHeader'
 import actions from './../../store/actions'
 import { connect } from 'react-redux'
 
-const { loginUser } = actions
+const { loginUser, logoutUser } = actions
 const { page, title, background, signup, login } = styles
 
 class Home extends React.Component {
@@ -34,7 +34,7 @@ class Home extends React.Component {
         {/* If not logged in, render two buttons */}
         <div>
           <Button onClick={this.navigateToSignup}> Signup </Button>
-          <Button > Login </Button>
+          {this.props.loggedIn ? <Button onClick={this.props.logout}> Logout </Button> : <Button> Login </Button> }
         </div>
       </StickyHeader>
 
@@ -55,14 +55,14 @@ class Home extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   console.log('state is now', state)
   return {
-    loggedIn: state.handleUserAccount.loggedIn
+    loggedIn: state.user.loggedIn
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    login: () => {
-      dispatch(loginUser('foo', 'bar'))
+    logout: () => {
+      dispatch(logoutUser())
     }
   }
 }

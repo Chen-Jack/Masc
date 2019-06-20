@@ -1,5 +1,8 @@
 import React from 'react'
 import { form, cta, error } from './SignupForm.module.css'
+import { connect } from 'react-redux'
+import actions from './../../store/actions'
+const { loginUser } = actions
 
 class SignupForm extends React.Component {
   constructor(props){
@@ -20,24 +23,25 @@ class SignupForm extends React.Component {
   }
 
   sendForm = () => {
-    const successCb = this.props.onSuccess
-    const failureCb = this.props.onFailure
+    this.props.login(this.state.email, this.state.password)
+    // const successCb = this.props.onSuccess
+    // const failureCb = this.props.onFailure
   
-    fetch('http://localhost:3001/signup', {
-      method: 'POST',
-      body: JSON.stringify(this.state),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(res => {
-      if (res.ok) {
-        successCb && successCb()
-      } else {
-        successCb && failureCb()
-      }
-    }).catch(err => {
-      console.log(err);
-    })
+    // fetch('http://localhost:3001/signup', {
+    //   method: 'POST',
+    //   body: JSON.stringify(this.state),
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // }).then(res => {
+    //   if (res.ok) {
+    //     successCb && successCb()
+    //   } else {
+    //     successCb && failureCb()
+    //   }
+    // }).catch(err => {
+    //   console.log(err);
+    // })
   }
 
   render() {
@@ -51,4 +55,12 @@ class SignupForm extends React.Component {
     }
 }
 
-export default SignupForm
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    login: (email, password) => {
+      dispatch(loginUser(email, password))
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SignupForm)
