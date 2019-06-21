@@ -33,6 +33,10 @@ class Home extends React.Component {
     this.props.history.push('create-post')
   }
 
+  navigateToLogin = () => {
+    this.props.history.push('login')
+  }
+
   render() {
     return <div className={page}>
       <StickyHeader>
@@ -43,7 +47,7 @@ class Home extends React.Component {
         <div>
           {this.props.loggedIn && <div> Hello {this.props.username} </div>}
           {!this.props.loggedIn && <Button onClick={this.navigateToSignup}> Signup </Button> }
-          {this.props.loggedIn ? <Button onClick={this.props.logout}> Logout </Button> : <Button> Login </Button> }
+          {this.props.loggedIn ? <Button onClick={this.props.logout}> Logout </Button> : <Button onClick={this.navigateToLogin}> Login </Button> }
         </div>
       </StickyHeader>
 

@@ -6,6 +6,7 @@ const UserQuery = require('./query/User')
 const GetPostQuery = require('./query/GetPost')
 const GetUsersQuery = require('./query/GetUsers')
 const AutheticateQuery = require('./query/Authenticate')
+const LoginQuery = require('./query/LoginUser')
 
 const createPost = require('./mutations/createPost')
 const createUser = require('./mutations/createUser')
@@ -17,7 +18,8 @@ const RootQuery = new GraphQLObjectType({
     users: UserQuery,
     getPosts: GetPostQuery,
     getUsers: GetUsersQuery,
-    authenticate: AutheticateQuery
+    authenticate: AutheticateQuery,
+    loginUser: LoginQuery
   }
 })
 

@@ -1,15 +1,17 @@
 import cm from 'cookieman'
-function loginUser (email, password) {
-  return (dispatch) => {
-    const query = `
-      mutation {
-        createUser(email:"${email}", password:"${password}") {
-          token,
-          id,
-          username
-        }
+
+function createUser (email, password) {
+  console.log('[Action] creating user')
+  const query = `
+    mutation {
+      createUser(email:"${email}", password:"${password}") {
+        token,
+        id,
+        username
       }
-    `
+    }
+  `
+  return (dispatch) => {
     fetch('http://localhost:3010/graphql', {
       method: 'POST',
       body: JSON.stringify({ query }),
@@ -26,6 +28,44 @@ function loginUser (email, password) {
             id: createUser.id,
             username: createUser.username
           })
+        })
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+}
+
+function loginUser (email, password) {
+  console.log('[Action] Logging in user')
+  const query = `
+    query {
+      loginUser(email:"${email}", password:"${password}") {
+        token,
+        id,
+        username
+      }
+    }
+  `
+  return (dispatch) => {
+    fetch('http://localhost:3010/graphql', {
+      method: 'POST',
+      body: JSON.stringify({ query }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => {
+      res.json()
+        .then(result => {
+          if (result.data.loginUser) {
+            console.log('login action result', result)
+            const token = result.data.loginUser.token
+            cm.set('user', token)
+            dispatch({
+              type: 'LOGIN',
+              id: createUser.id,
+              username: createUser.username
+            })
+          }
         })
     }).catch(err => {
       console.log(err)
@@ -53,13 +93,18 @@ function authenticate (token) {
       }
     }).then(res => {
       res.json()
-        .then(({ data }) => {
-          const { id, username } = data.authenticate
-          dispatch({
-            type: 'LOGIN',
-            id,
-            username
-          })
+        .then(result => {
+          console.log('authenticate result', result)
+          if (result.errors && result.errors.length) {
+            return dispatch(logoutUser())
+          } else {
+            const { id, username } = result.data.authenticate
+            dispatch({
+              type: 'LOGIN',
+              id,
+              username
+            })
+          }
         })
     }).catch(err => {
       console.log(err)
@@ -75,6 +120,7 @@ function logoutUser () {
 }
 
 export {
+  createUser,
   loginUser,
   logoutUser,
   authenticate

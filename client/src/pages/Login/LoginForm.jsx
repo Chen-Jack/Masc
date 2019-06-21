@@ -1,9 +1,8 @@
 import React from 'react'
-import { form, cta, error, field } from './SignupForm.module.css'
+import { form, cta, error, field } from './login-form.module.css'
 import { connect } from 'react-redux'
 import actions from './../../store/actions'
-const { createUser } = actions
-console.log('create user', createUser)
+const { loginUser } = actions
 
 class SignupForm extends React.Component {
   constructor(props){
@@ -24,7 +23,7 @@ class SignupForm extends React.Component {
   }
 
   sendForm = () => {
-    this.props.create(this.state.email, this.state.password)
+    this.props.login(this.state.email, this.state.password)
   }
 
   render() {
@@ -46,8 +45,8 @@ class SignupForm extends React.Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    create: (email, password) => {
-      dispatch(createUser(email, password))
+    login: (email, password) => {
+      dispatch(loginUser(email, password))
     }
   }
 }

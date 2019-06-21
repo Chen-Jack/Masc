@@ -5,6 +5,7 @@ import Home from './pages/Home/'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
 import CreatePost from './pages/CreatePost'
+import Login from './pages/Login'
 import FourOhFour from './pages/404'
 
 function App () {
@@ -16,6 +17,7 @@ function App () {
           <Route path='/signup' component={Signup} />
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/create-post' component={CreatePost} />
+          <Route path='/login' component={Login} />
           <Route path='*' component={FourOhFour} />
         </Switch>
       </Router>
