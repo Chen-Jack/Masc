@@ -6,6 +6,10 @@
     flex-direction: column;
 }
 
+.title {
+    color: white;
+}
+
 .background {
     position: absolute;
     top: 0;

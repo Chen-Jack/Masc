@@ -8,8 +8,8 @@ import { connect } from 'react-redux'
 import NoPosts from './NoPosts'
 import cm from 'cookieman'
 
-const { authenticate, logoutUser } = actions
-const { page, title, background, signup, login, gallery, createBtn } = styles
+const { authenticate, logoutUser, getPosts } = actions
+const { page, title, gallery, createBtn } = styles
 
 function mapToCards (posts) {
   return posts.map(({title, body, author}) => {
@@ -23,6 +23,7 @@ class Home extends React.Component {
     if (token) {
       this.props.authenticate(token)
     }
+    this.props.getPosts()
   }
 
   navigateToSignup = () => {
@@ -77,8 +78,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     logout: () => {
       dispatch(logoutUser())
     },
-    authenticate: (token) => {
+    authenticate: token => {
       dispatch(authenticate(token))
+    },
+    getPosts: () => {
+      dispatch(getPosts())
     }
   }
 }

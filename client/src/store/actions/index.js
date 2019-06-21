@@ -1,10 +1,11 @@
 import { loginUser, createUser, logoutUser, authenticate } from './login'
-import { createPost } from './posts'
+import { createPost, getPosts } from './posts'
 
 export default {
   loginUser,
   logoutUser,
   createPost,
   authenticate,
-  createUser
+  createUser,
+  getPosts
 }

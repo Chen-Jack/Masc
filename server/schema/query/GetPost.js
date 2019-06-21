@@ -1,35 +1,6 @@
 const { GraphQLList, GraphQLInt } = require('graphql')
 const PostType = require('./../types/Post')
-
-const mockPosts = [
-  {
-    postId: '1',
-    title: 'foo',
-    body: 'bar',
-    author: {
-      id: 'ok',
-      username: 'anonymous bob'
-    }
-  },
-  {
-    postId: '2',
-    title: 'fo23o',
-    body: 'ba12r',
-    author: {
-      id: 'o23k',
-      username: 'anonymous H'
-    }
-  },
-  {
-    postId: '24',
-    title: 'fosdfo',
-    body: 'barfds',
-    author: {
-      id: '233k',
-      username: 'anonymous all'
-    }
-  }
-]
+const db = require('./../../db')
 
 const GetPostQuery = {
   type: new GraphQLList(PostType),
@@ -37,7 +8,17 @@ const GetPostQuery = {
     amount: { type: GraphQLInt }
   },
   resolve (parent, args) {
-    return mockPosts.slice(0, args.amount)
+    console.log('getPostQuery called')
+    return new Promise(resolve => {
+      db.all(`SELECT * FROM posts`, (err, res) => {
+        if (err) {
+          console.log('Error getting posts from graphql', err)
+        } else {
+          console.log('getPostsQuery', res)
+          resolve(res)
+        }
+      })
+    })
   }
 }
 

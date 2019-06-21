@@ -1,7 +1,7 @@
 import React from 'react'
 import SignupForm from './SignupForm'
 import Hero from './hero.jpeg'
-import { page, background } from './Signup.module.css'
+import { page, background, title } from './Signup.module.css'
 import { connect } from 'react-redux'
 import actions from './../../store/actions'
 import cm from 'cookieman'
@@ -22,7 +22,7 @@ class Signup extends React.Component {
     }
     return <div className={page}>
       <img className={background} src={Hero} alt='people standing' />
-      <h1> Create your account </h1>
+      <h1 className={title}> Create your account </h1>
       <SignupForm onFailure={() => console.log('bad')}/>
     </div>
   }

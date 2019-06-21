@@ -7,7 +7,7 @@ const PostType = new GraphQLObjectType({
     postId: { type: GraphQLString },
     title: { type: GraphQLString },
     body: { type: GraphQLString },
-    author: { type: UserType }
+    author: { type: GraphQLString }
   })
 })
 

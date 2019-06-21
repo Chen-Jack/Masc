@@ -95,7 +95,7 @@ function authenticate (token) {
       res.json()
         .then(result => {
           console.log('authenticate result', result)
-          if (result.errors && result.errors.length) {
+          if (!result.data.authenticate || (result.errors && result.errors.length)) {
             return dispatch(logoutUser())
           } else {
             const { id, username } = result.data.authenticate

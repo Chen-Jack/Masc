@@ -29,7 +29,6 @@ class SignupForm extends React.Component {
 
   render() {
     return <div className={form}>
-        <div className={error}> There was an error </div>
         <div className={field}>
           <label> Email </label><input type='text' onChange={this.handleChange('email')} />
         </div>
