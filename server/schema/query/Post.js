@@ -43,4 +43,4 @@ const PostQuery = {
   }
 }
 
-export default PostQuery
+module.exports = PostQuery

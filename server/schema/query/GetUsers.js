@@ -1,4 +1,4 @@
-const { GraphQLString } = require('graphql')
+const { GraphQLString, GraphQLList } = require('graphql')
 const UserType = require('./../types/User')
 
 const mockAuthors = [
@@ -13,12 +13,12 @@ const mockAuthors = [
 ]
 
 const UserQuery = {
-  type: UserType,
+  type: new GraphQLList(UserType),
   args: {
     id: { type: GraphQLString }
   },
   resolve (parent, args) {
-    return mockAuthors.find(user => user.id === args.id)
+    return mockAuthors
   }
 }
 

@@ -37,6 +37,7 @@ class Home extends React.Component {
         </div>
         {/* If not logged in, render two buttons */}
         <div>
+          {this.props.loggedIn && <div> Hello {this.props.username} </div>}
           <Button onClick={this.navigateToSignup}> Signup </Button>
           {this.props.loggedIn ? <Button onClick={this.props.logout}> Logout </Button> : <Button> Login </Button> }
         </div>
@@ -44,12 +45,7 @@ class Home extends React.Component {
 
 
       {/* Once logged in, render dashboard and create post btn */}
-      <button type='button' onClick={this.navigateToCreatePost}> Create Post </button>
-
-      {this.props.loggedIn ? <div> Logged in </div> : <div> loggedout </div>}
-      <button onClick={() => {
-        this.props.login()
-      }}> Log in?</button>
+      {this.props.loggedIn && <button type='button' onClick={this.navigateToCreatePost}> Create Post </button>}
 
       {/* Render all recent posts */}
       <div className={gallery}>
@@ -63,7 +59,8 @@ const mapStateToProps = (state, ownProps) => {
   console.log('state is now', state)
   return {
     loggedIn: state.user.loggedIn,
-    posts: state.posts.posts
+    posts: state.posts.posts,
+    username: state.user.username
   }
 }
 

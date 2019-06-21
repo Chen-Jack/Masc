@@ -1,5 +1,5 @@
 import React from 'react'
-import { form, cta, error } from './SignupForm.module.css'
+import { form, cta, error, field } from './SignupForm.module.css'
 import { connect } from 'react-redux'
 import actions from './../../store/actions'
 const { loginUser } = actions
@@ -24,32 +24,20 @@ class SignupForm extends React.Component {
 
   sendForm = () => {
     this.props.login(this.state.email, this.state.password)
-    // const successCb = this.props.onSuccess
-    // const failureCb = this.props.onFailure
-  
-    // fetch('http://localhost:3001/signup', {
-    //   method: 'POST',
-    //   body: JSON.stringify(this.state),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // }).then(res => {
-    //   if (res.ok) {
-    //     successCb && successCb()
-    //   } else {
-    //     successCb && failureCb()
-    //   }
-    // }).catch(err => {
-    //   console.log(err);
-    // })
   }
 
   render() {
     return <div className={form}>
         <div className={error}> There was an error </div>
-        <input type='text' onChange={this.handleChange('email')} />
-        <input type='password' onChange={this.handleChange('password')} />
-        <input type='password' onChange={this.handleChange('password_confirm')} />
+        <div className={field}>
+          <label> Email </label><input type='text' onChange={this.handleChange('email')} />
+        </div>
+        <div className={field}>
+          <label> Password </label><input type='password' onChange={this.handleChange('password')} />
+        </div>
+        <div className={field}>
+          <label> Confirm Password </label><input type='password' onChange={this.handleChange('password_confirm')} />
+        </div>
         <button type='button' onClick={this.sendForm} className={cta}> Submit </button>
       </div>
     }

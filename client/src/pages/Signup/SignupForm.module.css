@@ -1,11 +1,20 @@
 .form {
     display: inline-flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     flex-direction: column;
     background-color: white;
     padding: 20px;
-    box-shadow: 2px 2px 2px rgba(0,0,0,0.1)
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    width: 500px;
+}
+
+.field {
+
+}
+
+.form div {
+    display: inline;
 }
 
 .error {

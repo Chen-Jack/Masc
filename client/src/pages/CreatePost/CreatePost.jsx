@@ -14,8 +14,9 @@ class CreatePost extends React.Component {
   }
 
   createPost = () => {
-    this.props.createPost('author', this.state.title, this.state.body)
-    this.props.history.push('/')
+    this.props.createPost('author', this.state.title, this.state.body, ()=> {
+      this.props.history.push('/')
+    })
     // const query = `
     //   mutation {
     //     createPost(title:"${this.state.title}", body:"${this.state.body}" ) {
@@ -63,8 +64,8 @@ class CreatePost extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createPost: (author, title, body) => {
-      dispatch(createPost({ author, title, body }))
+    createPost: (author, title, body, cb) => {
+      dispatch(createPost({ author, title, body }, cb))
     }
   }
 }

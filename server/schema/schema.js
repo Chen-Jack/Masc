@@ -4,8 +4,9 @@ const { GraphQLObjectType, GraphQLSchema } = graphql
 const PostQuery = require('./query/Post')
 const UserQuery = require('./query/User')
 const GetPostQuery = require('./query/GetPost')
+const GetUsersQuery = require('./query/GetUsers')
 
-const createPost = require('./mutations/creatPost')
+const createPost = require('./mutations/createPost')
 const createUser = require('./mutations/createUser')
 
 const RootQuery = new GraphQLObjectType({
@@ -13,7 +14,8 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     posts: PostQuery,
     users: UserQuery,
-    getPosts: GetPostQuery
+    getPosts: GetPostQuery,
+    getUsers: GetUsersQuery
   }
 })
 
