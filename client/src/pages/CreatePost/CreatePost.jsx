@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import actions from './../../store/actions'
-const { createPost } = actions
 
 class CreatePost extends React.Component {
   constructor (props) {
@@ -14,33 +13,30 @@ class CreatePost extends React.Component {
   }
 
   createPost = () => {
-    this.props.createPost('author', this.state.title, this.state.body, ()=> {
-      this.props.history.push('/')
+    const query = `
+      mutation {
+        createPost(username:"${this.props.username}" , title:"${this.state.title}", body:"${this.state.body}" ) {
+          postId,
+          title,
+          body
+        }
+      }
+    `
+    console.log('qiery', query)
+    fetch('http://localhost:3010/graphql', {
+      method: 'POST',
+      body: JSON.stringify({ query }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => {
+      res.json()
+        .then(body => {
+          console.log('Created', body)
+          // Redirect to home after creation
+          this.props.history.push('/')
+        })
     })
-    // const query = `
-    //   mutation {
-    //     createPost(title:"${this.state.title}", body:"${this.state.body}" ) {
-    //       postId,
-    //       title,
-    //       body
-    //     }
-    //   }
-    // `
-    // console.log('qiery', query)
-    // fetch('http://localhost:3010/graphql', {
-    //   method: 'POST',
-    //   body: JSON.stringify({query}),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // }).then(res => {
-    //   res.json()
-    //     .then(body => {
-    //       console.log('Created', body)
-    //       // Redirect to home after creation
-    //       this.props.history.push('/')
-    //     })
-    // })
   }
 
   handleFormChange = (field) => {
@@ -62,13 +58,11 @@ class CreatePost extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
   return {
-    createPost: (author, title, body, cb) => {
-      dispatch(createPost({ author, title, body }, cb))
-    }
+    username: state.user.username
   }
 }
 
 
-export default connect(null, mapDispatchToProps)(CreatePost)
+export default connect(mapStateToProps)(CreatePost)

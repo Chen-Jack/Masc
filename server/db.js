@@ -18,8 +18,7 @@ function validatePostTable () {
     postId TEXT PRIMARY KEY,
     title TEXT,
     body TEXT,
-    author TEXT,
-    FOREIGN KEY(author) REFERENCES users(id)
+    author TEXT
   )`, err => {
     if (err) {
       return console.log('Failure to create/validate Post table')
