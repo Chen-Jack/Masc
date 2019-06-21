@@ -1,6 +1,7 @@
 const { GraphQLString } = require('graphql')
 const PostType = require('./../types/Post')
 const uuid = require('uuid/v4')
+const db = require('./../../db')
 
 const createPost = {
   type: PostType,
@@ -16,7 +17,9 @@ const createPost = {
       body: args.body
     }
     // mockPosts.push(newPost)
-    return newPost
+    return new Promise(resolve => {
+      db.run(`INSERT INTO posts`)
+    })
   }
 }
 

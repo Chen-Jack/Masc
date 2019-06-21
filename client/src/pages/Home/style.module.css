@@ -13,6 +13,16 @@
     background-color: rgba(0,0,0,0.02);
 }
 
+.createBtn {
+    padding: 10px 20px;
+    color: white;
+    background-color: black;
+}
+
+.createBtn:hover {
+    cursor: pointer;
+}
+
 .background {
     position: absolute;
     top: 0;

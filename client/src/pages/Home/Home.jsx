@@ -6,9 +6,10 @@ import PostCard from './PostCard'
 import actions from './../../store/actions'
 import { connect } from 'react-redux'
 import NoPosts from './NoPosts'
+import cm from 'cookieman'
 
-const { loginUser, logoutUser } = actions
-const { page, title, background, signup, login, gallery } = styles
+const { authenticate, logoutUser } = actions
+const { page, title, background, signup, login, gallery, createBtn } = styles
 
 function mapToCards (posts) {
   return posts.map(({title, body, author}) => {
@@ -18,7 +19,10 @@ function mapToCards (posts) {
 
 class Home extends React.Component {
   componentDidMount () {
-    
+    const token = cm.val('user')
+    if (token) {
+      this.props.authenticate(token)
+    }
   }
 
   navigateToSignup = () => {
@@ -38,14 +42,14 @@ class Home extends React.Component {
         {/* If not logged in, render two buttons */}
         <div>
           {this.props.loggedIn && <div> Hello {this.props.username} </div>}
-          <Button onClick={this.navigateToSignup}> Signup </Button>
+          {!this.props.loggedIn && <Button onClick={this.navigateToSignup}> Signup </Button> }
           {this.props.loggedIn ? <Button onClick={this.props.logout}> Logout </Button> : <Button> Login </Button> }
         </div>
       </StickyHeader>
 
 
       {/* Once logged in, render dashboard and create post btn */}
-      {this.props.loggedIn && <button type='button' onClick={this.navigateToCreatePost}> Create Post </button>}
+      {this.props.loggedIn && <button className={createBtn} type='button' onClick={this.navigateToCreatePost}> Create Post + </button>}
 
       {/* Render all recent posts */}
       <div className={gallery}>
@@ -68,6 +72,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     logout: () => {
       dispatch(logoutUser())
+    },
+    authenticate: (token) => {
+      dispatch(authenticate(token))
     }
   }
 }

@@ -11,7 +11,7 @@ const db = new sqlite3.Database('./database.db', err => {
 validateUserTable()
 validatePostTable()
 
-module.export = db
+module.exports = db
 
 function validatePostTable () {
   db.run(`CREATE TABLE IF NOT EXISTS posts(
@@ -29,8 +29,9 @@ function validatePostTable () {
 }
 
 function validateUserTable () {
-  db.run(`CREATE TABLE IF NOT EXISTS users(
+  db.run(`CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
+    email TEXT,
     username TEXT,
     password TEXT
   )`, err => {

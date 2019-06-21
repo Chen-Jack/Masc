@@ -1,8 +1,9 @@
-import { loginUser, logoutUser } from './login'
+import { loginUser, logoutUser, authenticate } from './login'
 import { createPost } from './posts'
 
 export default {
   loginUser,
   logoutUser,
-  createPost
+  createPost,
+  authenticate
 }

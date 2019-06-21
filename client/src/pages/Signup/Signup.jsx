@@ -4,9 +4,14 @@ import Hero from './hero.jpeg'
 import { page, background } from './Signup.module.css'
 import { connect } from 'react-redux'
 import actions from './../../store/actions'
+import cm from 'cookieman'
 const { loginUser } = actions
 
 class Signup extends React.Component {
+  componentDidMount () {
+    const token = cm.val('user')
+    if (token) { this.props.history.push('/') }
+  }
   redirectToMain = () => {
     this.props.history.push('/')
   }
