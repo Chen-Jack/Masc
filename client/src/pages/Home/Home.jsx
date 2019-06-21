@@ -12,7 +12,7 @@ const { authenticate, logoutUser, getPosts } = actions
 const { page, title, gallery, createBtn } = styles
 
 function mapToCards (posts) {
-  return posts.map(({title, body, author}) => {
+  return posts.reverse().map(({title, body, author}) => {
     return <PostCard title={title} body={body} author={author}/>
   })
 }
